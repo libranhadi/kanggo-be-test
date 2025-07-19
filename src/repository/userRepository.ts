@@ -1,6 +1,7 @@
 
 import models from '../model';
 import User from '../model/User';
+import Role from '../model/Role';
 
 export class UserRepository {
 
@@ -17,8 +18,8 @@ export class UserRepository {
           as: 'roles', 
         },
         {
-          model: models.Applicant,
-          as: 'applicants', 
+          model: models.User,
+          as: 'users', 
         },
       ],
     });

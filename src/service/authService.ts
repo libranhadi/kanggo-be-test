@@ -11,7 +11,7 @@ export class AuthService {
     this.userRepository = userRepository;
   }
 
-  public async register(userData : Partial<User>): Promise <Partial<User>> {
+  public async register(userData : User): Promise <Partial<User>> {
     try {
       const existingUser = await this.userRepository.findByEmail(userData.email!);
       if (existingUser) {

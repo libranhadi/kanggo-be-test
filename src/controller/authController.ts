@@ -37,7 +37,7 @@ export class AuthController {
         throw new ErrorHandler(400, errors.array()[0].msg);
       }
 
-      const userData: Partial<typeof User> = req.body;
+      const userData: User = req.body;
       const user = await this.authService.register(userData);
       successResponse(res, user, 'User registered successfully', 201);
     } catch (error) {

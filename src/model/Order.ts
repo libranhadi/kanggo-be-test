@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
+import sequelize from '../config/database';
 
-export default (sequelize: Sequelize) => {
-  class Order extends Model {
+class Order extends Model {
     public id!: number;
     public userId!: number;
     public status!: 'paid' | 'active' | 'cancel' | 'completed';
@@ -12,9 +12,9 @@ export default (sequelize: Sequelize) => {
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
-  }
+}
 
-  Order.init({
+ Order.init({
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -49,8 +49,8 @@ export default (sequelize: Sequelize) => {
     sequelize,
     modelName: 'Order',
     tableName: 'Orders',
+    schema: 'kanggo',
     timestamps: true,
-  });
+});
 
-  return Order;
-};
+export default Order;
