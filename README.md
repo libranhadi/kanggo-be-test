@@ -19,7 +19,7 @@
 - Order status management (paid, active, completed, cancel)
 - Customer-specific order listing
 
-### Cron Jobs
+### Cron Jobs (On going)
 - Daily status updates:
   - 7:00 WIB: Update eligible orders to "active"
   - 17:00 WIB: Update eligible orders to "completed"
@@ -32,7 +32,7 @@
 | `/api/v1/auth/register` | POST   | Register new customer        | No            |
 | `/api/v1/auth/login`    | POST   | Login (JWT token generation) | No            |
 
-### Handymen
+### Worker
 | Endpoint                 | Method | Description                          | Auth Required |
 |--------------------------|--------|--------------------------------------|---------------|
 | `/api/v1/workers`        | GET    | List all available handymen         | No            |
