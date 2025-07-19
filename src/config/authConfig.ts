@@ -1,5 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 require('dotenv').config();
+import {User} from '../model/User';
+
 
 interface JwtPayload {
   userId: any;
@@ -7,8 +9,14 @@ interface JwtPayload {
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret'; 
 
-export const generateToken = (userId:string|undefined) => {
-  return jwt.sign({userId}, JWT_SECRET, { expiresIn: 30});
+export const generateTokenJwt = (user: User) => {
+  const data = {
+    full_name: user.full_name,
+    email: user.email,
+    role: user.role 
+  };
+
+  return jwt.sign(data, JWT_SECRET, { expiresIn: 30});
 };
 
 export const verifyToken = (token: string) => {

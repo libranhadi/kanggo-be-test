@@ -5,7 +5,8 @@ export interface User {
   full_name: string;
   email: string;
   phone_number: string;
-  role: UserRole;
+  role: string;
+  userRole: UserRole;
   role_id: number;
   password: string;
   created_at?: Date;

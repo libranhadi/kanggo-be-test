@@ -4,6 +4,7 @@ import { successResponse } from '../helper/successHandler';
 import {User} from '../model/User';
 import { AuthService } from '../service/authService';
 import { body, validationResult } from 'express-validator';
+import { generateTokenJwt } from '../config/authConfig';
 
 
 export class AuthController {
@@ -39,6 +40,10 @@ export class AuthController {
 
       const userData: User = req.body;
       const user = await this.authService.register(userData);
+
+      generateTokenJwt(user);
+
+
       successResponse(res, user, 'User registered successfully', 201);
     } catch (error) {
       if (error instanceof ErrorHandler) {
@@ -69,6 +74,8 @@ export class AuthController {
 
       const { email, password } = req.body;
       const resp = await this.authService.login(email, password);
+
+      generateTokenJwt(resp);
       successResponse(res, resp, 'User logged in successfully', 200);
     } catch (error) {
       if (error instanceof ErrorHandler) {
