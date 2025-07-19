@@ -7,7 +7,7 @@ interface JwtPayload {
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret'; 
 
-export const generateToken = (userId:string) => {
+export const generateToken = (userId:string|undefined) => {
   return jwt.sign({userId}, JWT_SECRET, { expiresIn: 30});
 };
 

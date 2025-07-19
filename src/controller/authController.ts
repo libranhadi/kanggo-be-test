@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ErrorHandler } from '../helper/errorHandler';
 import { successResponse } from '../helper/successHandler';
-import User from '../model/User';
+import {User} from '../model/User';
 import { AuthService } from '../service/authService';
 import { body, validationResult } from 'express-validator';
 
