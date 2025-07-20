@@ -2,9 +2,9 @@ export type UserRole = 'customer' | 'admin';
 
 export interface User {
   id?: number;
-  full_name: string;
+  fullname: string;
   email: string;
-  phone_number: string;
+  cellphone: string;
   role: string;
   userRole: UserRole;
   role_id: number;
@@ -14,10 +14,12 @@ export interface User {
   deleted_at?: Date | null;
 }
 
-export interface CreateUserDTO {
-  full_name: string;
+export interface UserResponseDTO {
+  user_id?: number;
   email: string;
-  phone_number: string;
-  role_id: number;
-  password: string;
+  fullname: string;
+  created_at: Date | null;
 }
+
+export type SafeUserCreate = Pick<User, 'fullname' | 'email' | 'cellphone' | 'role_id' | 'password'>
+export type SafeUserResponse = Pick<User, 'email'> & any;

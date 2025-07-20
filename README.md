@@ -29,8 +29,8 @@
 ### Authentication
 | Endpoint       | Method | Description                  | Auth Required |
 |----------------|--------|------------------------------|---------------|
-| `/api/v1/auth/register` | POST   | Register new customer        | No            |
-| `/api/v1/auth/login`    | POST   | Login (JWT token generation) | No            |
+| `/api/v1/register` | POST   | Register new customer        | No            |
+| `/api/v1/login`    | POST   | Login (JWT token generation) | No            |
 
 ### Worker
 | Endpoint                 | Method | Description                          | Auth Required |

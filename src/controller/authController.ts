@@ -20,6 +20,24 @@ export class AuthController {
         .isEmail()
         .withMessage('Valid email is required')
         .normalizeEmail(),
+      body('fullname')
+        .exists()
+        .withMessage('fullname is required'),
+      body('cellphone')
+        .exists()
+        .withMessage('cellphone is required'),
+      body('role')
+        .exists()
+        .withMessage('role is required')
+         .custom((value) => {
+          if (typeof value !== 'string') {
+            throw new Error('role must be a string');
+          }
+          if (value.toLowerCase() !== 'customer') {
+            throw new Error('role must be customer');
+          }
+          return true;
+        }),
       body('password')
         .isLength({ min: 6 })
         .withMessage('Password must be at least 6 characters long')
@@ -41,9 +59,6 @@ export class AuthController {
       const userData: User = req.body;
       const user = await this.authService.register(userData);
 
-      generateTokenJwt(user);
-
-
       successResponse(res, user, 'User registered successfully', 201);
     } catch (error) {
       if (error instanceof ErrorHandler) {
@@ -56,7 +71,7 @@ export class AuthController {
 
   public validateLogin() {
     return [
-      body('email').isEmail().withMessage('Valid email is required'),
+      body('email_cellphone').exists().isEmail().withMessage('Valid email is required'),
       body('password').exists().withMessage('Password is required'),
     ];
   }
@@ -72,10 +87,8 @@ export class AuthController {
         throw new ErrorHandler(400, errors.array()[0].msg);
       }
 
-      const { email, password } = req.body;
-      const resp = await this.authService.login(email, password);
-
-      generateTokenJwt(resp);
+      const { email_cellphone, password } = req.body;
+      const resp = await this.authService.login(email_cellphone, password);
       successResponse(res, resp, 'User logged in successfully', 200);
     } catch (error) {
       if (error instanceof ErrorHandler) {

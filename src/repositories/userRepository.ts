@@ -1,12 +1,12 @@
 import bcrypt from 'bcryptjs';
 import db from '../config/database';
-import { User, CreateUserDTO } from '../model/User';
+import { User, SafeUserCreate } from '../model/User';
 import { ErrorHandler } from '../helper/errorHandler';
 
 const TABLE_NAME = 'users';
 
 export default class UserRepository {
-  async create(userData: CreateUserDTO): Promise<User> {
+  async create(userData: SafeUserCreate): Promise<User> {
     try {
       const hashedPassword = await bcrypt.hash(userData.password, 10);
       const [user] = await db(TABLE_NAME)
@@ -19,6 +19,7 @@ export default class UserRepository {
         .returning('*');
       return user;
     } catch (error) {
+        console.log(error)
       throw new ErrorHandler(500, 'Failed to create user');
     }
   }
@@ -26,11 +27,12 @@ export default class UserRepository {
   async findByEmail(email: string): Promise<User | null> {
     try {
       return await db(TABLE_NAME)
-        .join('roles', 'users.role_id', 'roles.id')
         .select('users.*', 'roles.name as role')
+        .join('roles', 'users.role_id', 'roles.id')
         .where('users.email', email)
         .first();
     } catch (error) {
+        console.log(error)
       throw new ErrorHandler(500, 'Failed to find user by email');
     }
   }

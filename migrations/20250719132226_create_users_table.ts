@@ -6,8 +6,8 @@ export async function up(knex: Knex): Promise<void> {
     .createTable('users', (table) => {
       table.increments('id').primary().notNullable();
       
-      table.string('full_name', 100).notNullable();
-      table.string('phone_number', 20).notNullable();
+      table.string('fullname', 100).notNullable();
+      table.string('cellphone', 20).notNullable();
       table.string('email', 50).notNullable().unique();
       table.string('password', 255).notNullable();
       

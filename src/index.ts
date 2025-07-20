@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import authRoutes from './routes/authRoute';
 import {ErrorMiddleware}  from './middleware/ErrorMiddleware';
 
-// import authMiddleware from './middleware/authMiddleware';
+import authMiddleware from './middleware/authMiddleware';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -15,8 +15,11 @@ app.get('/health', (req: Request, res: Response) => {
     res.status(200).json({ status: 'UP' });
 });
 
-app.use('/api/v1/auth',authRoutes);
-// app.use(authMiddleware)
+app.use('/api/v1',authRoutes);
+app.use(authMiddleware)
+app.get('/api/v1/health-check-validate-token', (req: Request, res: Response) => {
+    res.status(200).json({ status: 'UP VALIDATED' });
+});
 app.use(ErrorMiddleware);
 
 app.listen(PORT, () => {
