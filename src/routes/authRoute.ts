@@ -11,7 +11,7 @@ const authService = new AuthService(userRepository, roleRepository);
 const authController = new AuthController(authService);
 
 
-router.post('/register', authController.validateRegister(), authController.register.bind(authController));
-router.post('/login', authController.validateLogin(), authController.login.bind(authController));
+router.post('/register', authController.validateRegister(), authController.register);
+router.post('/login', authController.validateLogin(), authController.login);
 
 export default router;

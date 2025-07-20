@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 require('dotenv').config();
 import {User} from '../model/User';
-
+import { CustomJwtPayload } from '../../types/auth';
 
 interface JwtPayload {
   userId: any;
@@ -20,5 +20,5 @@ export const generateTokenJwt = (user: User) => {
 };
 
 export const verifyToken = (token: string) => {
-  return jwt.verify(token, JWT_SECRET) as JwtPayload;
+  return jwt.verify(token, JWT_SECRET) as CustomJwtPayload;
 };

@@ -4,7 +4,6 @@ import { successResponse } from '../helper/successHandler';
 import {User} from '../model/User';
 import { AuthService } from '../service/authService';
 import { body, validationResult } from 'express-validator';
-import { generateTokenJwt } from '../config/authConfig';
 
 
 export class AuthController {

@@ -4,6 +4,8 @@ import RoleRepository from '../repositories/roleRepository';
 import { SafeUserResponse, SafeUserCreate, User } from '../model/User';
 import { generateTokenJwt } from '../config/authConfig';
 import { mapToDTO } from '../utils/mapToDto';
+import dayjs from 'dayjs';
+import { FormatterDate } from '../utils/dateFormatter';
 
 export class AuthService {
   constructor(private userRepository: UserRepository, private roleRepository: RoleRepository) {}
@@ -30,13 +32,14 @@ export class AuthService {
 
       const user = await this.userRepository.create(userDto);
 
-      return mapToDTO(user,
-      {
-          user_id: user.id,
-          email: '',
-          fullname: '',
-          created_at: null,
-      } as SafeUserResponse);
+      let creFormat = FormatterDate(user.created_at, 'YYYY-MM-DD HH:mm:ss')
+      let userResp:SafeUserResponse = {
+        user_id: user.id,
+        email: user.email,
+        fullname: user.fullname,
+        created_at: creFormat,
+      }
+      return userResp
 
     } catch (error) {
       if (error instanceof ErrorHandler) {

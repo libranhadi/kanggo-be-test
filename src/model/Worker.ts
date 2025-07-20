@@ -5,3 +5,5 @@ export interface Worker {
   created_at?: Date;
   updated_at?: Date;
 }
+
+export type SafeWorkerResponse = Pick<Worker, 'worker_name'> & any;

@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
 import authRoutes from './routes/authRoute';
+import workerRoutes from './routes/workerRoute';
 import {ErrorMiddleware}  from './middleware/ErrorMiddleware';
-
+import authAdminMiddleware from './middleware/authAdminMiddleware';
 import authMiddleware from './middleware/authMiddleware';
 import bodyParser from 'body-parser';
 
@@ -17,9 +18,15 @@ app.get('/health', (req: Request, res: Response) => {
 
 app.use('/api/v1',authRoutes);
 app.use(authMiddleware)
+
 app.get('/api/v1/health-check-validate-token', (req: Request, res: Response) => {
     res.status(200).json({ status: 'UP VALIDATED' });
 });
+
+app.use(authAdminMiddleware)
+app.use('/api/v1/admin',workerRoutes);
+
+
 app.use(ErrorMiddleware);
 
 app.listen(PORT, () => {
