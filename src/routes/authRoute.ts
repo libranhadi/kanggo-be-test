@@ -10,7 +10,6 @@ const roleRepository = new RoleRepository();
 const authService = new AuthService(userRepository, roleRepository);
 const authController = new AuthController(authService);
 
-
 router.post('/register', authController.validateRegister(), authController.register);
 router.post('/login', authController.validateLogin(), authController.login);
 

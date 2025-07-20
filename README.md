@@ -19,7 +19,7 @@
 - Order status management (paid, active, completed, cancel)
 - Customer-specific order listing
 
-### Cron Jobs (On going)
+### Cron Jobs
 - Daily status updates:
   - 7:00 WIB: Update eligible orders to "active"
   - 17:00 WIB: Update eligible orders to "completed"
@@ -54,9 +54,6 @@
 - **Language**: TypeScript
 - **Database**: PostgreSQL (with Knex.js)
 - **Authentication**: JWT
-- **Testing**: Jest (unit tests)
-- **Containerization**: Docker
-- **API Documentation**: OpenAPI/Swagger (optional)
 
 ## Prerequisites
 

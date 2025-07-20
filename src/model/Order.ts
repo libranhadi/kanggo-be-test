@@ -11,3 +11,5 @@ export interface Order {
   created_at?: Date;
   updated_at?: Date;
 }
+
+export type SafeListOrderResponse = Omit<Order, 'updated_at' | 'user_id' | 'id'> & any;

@@ -9,6 +9,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types", "./src/types", "types"],
+    "types": ["jest"],
   },
   "include": [
     "src/**/*"

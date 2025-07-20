@@ -11,7 +11,8 @@
     "reinstall": "npm run clean && npm install",
     "seed": "npx knex seed:run ",
     "migrate": "npx knex migrate:latest",
-    "migrate:rollback": "npx knex migrate:rollback"
+    "migrate:rollback": "npx knex migrate:rollback",
+    "scheduler": "ts-node src/schedulers/orderScheduler.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
     "morgan": "^1.10.1",
+    "node-cron": "^4.2.1",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
     "pg-native": "^3.5.2",
@@ -39,6 +41,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^24.0.15",

@@ -13,7 +13,6 @@ export default class WorkerRepository {
         throw new ErrorHandler(500, 'Failed to retrieve worker');
     }
   }
-
     async create(data: Worker): Promise<Worker> {
     try {
       const [worker] = await db(TABLE_NAME)
@@ -60,4 +59,12 @@ export default class WorkerRepository {
         throw new ErrorHandler(500, 'Failed to delete worker');
     }
   }
+
+  async getWorkerByIds(workerIds: number[]) : Promise<Worker[]> {
+    return db('workers')
+      .select('id', 'worker_name', 'price')
+      .whereIn('id', workerIds)
+      .whereNull('deleted_at');
+  }
+
 }

@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import authRoutes from './routes/authRoute';
 import workerRoutes from './routes/workerRoute';
 import globRoutes from './routes/globRoute';
+import orderRoute from './routes/orderRoute';
 import {ErrorMiddleware}  from './middleware/ErrorMiddleware';
 import authAdminMiddleware from './middleware/authAdminMiddleware';
 import authMiddleware from './middleware/authMiddleware';
@@ -20,7 +21,7 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/api/v1',authRoutes);
 app.use('/api/v1', globRoutes);
 app.use(authMiddleware)
-
+app.use('/api/v1', orderRoute);
 
 app.get('/api/v1/health-check-validate-token', (req: Request, res: Response) => {
     res.status(200).json({ status: 'UP VALIDATED' });
@@ -35,3 +36,4 @@ app.use(ErrorMiddleware);
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+import './schedulers/orderScheduler'; 

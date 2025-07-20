@@ -36,8 +36,6 @@ export class WorkerController {
     ];
   }
 
-  
-
   public create = async (
     req: Request,
     res: Response,

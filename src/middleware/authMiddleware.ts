@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from "../config/authConfig";
 
-interface CustomRequest extends Request {
+export interface CustomRequest extends Request {
     user?: any; 
 }
 const authMiddleware = async (req: CustomRequest, res: Response, next: NextFunction) => {
