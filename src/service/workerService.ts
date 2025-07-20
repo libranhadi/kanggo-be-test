@@ -7,25 +7,32 @@ import { FormatterDate } from '../utils/dateFormatter';
 export class WorkerService {
   constructor(private workerRepo: WorkerRepository) {}
 
-  async getAll(): Promise<SafeWorkerResponse[]> {
+ async getAll(type: string): Promise<SafeWorkerResponse[]> {
     try {
       const workers = await this.workerRepo.findAll();
-      const mappedWorkers = workers.map(worker => ({
-        worker_id: worker.id,
-        worker_name: worker.worker_name || '',
-        price: worker.price || 0,      
-        created_at: worker.created_at ? FormatterDate(worker.created_at, 'YYYY-MM-DD HH:mm:ss') : '',
-        updated_at: worker.updated_at ? FormatterDate(worker.updated_at, 'YYYY-MM-DD HH:mm:ss') : ''
-      }));
       
+      const mapWorker = (worker: Worker): SafeWorkerResponse => {
+        const baseResponse = {
+          worker_id: worker.id,
+          worker_name: worker.worker_name || '',
+          price: worker.price || 0,
+        };
 
-      return mappedWorkers;
+        return type === 'all' 
+          ? baseResponse 
+          : {
+              ...baseResponse,
+              created_at: worker.created_at ? FormatterDate(worker.created_at, 'YYYY-MM-DD HH:mm:ss') : '',
+              updated_at: worker.updated_at ? FormatterDate(worker.updated_at, 'YYYY-MM-DD HH:mm:ss') : ''
+            };
+      };
 
-      } catch (error) {
+      return workers.map(mapWorker);
+    } catch (error) {
       if (error instanceof ErrorHandler) {
         throw error; 
       }
-      throw new ErrorHandler(500, 'Something went wrong during, please try again later.');
+      throw new ErrorHandler(500, 'Something went wrong, please try again later.');
     }
   }
 

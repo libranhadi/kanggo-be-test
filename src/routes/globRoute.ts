@@ -8,6 +8,6 @@ const repo = new WorkerRepository();
 const service = new WorkerService(repo);
 const controller = new WorkerController(service);
 
-router.get('/workers', controller.getAll);
+router.get('/workers', controller.listWorker);
 
 export default router;

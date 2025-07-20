@@ -9,7 +9,16 @@ export class WorkerController {
 
   getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const workers = await this.workerService.getAll();
+      const workers = await this.workerService.getAll("admin");
+      successResponse(res, workers, 'List Of Workers', 200);
+    } catch (err) {
+      next(new ErrorHandler(500, 'Failed to get workers'));
+    }
+  };
+
+  listWorker = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const workers = await this.workerService.getAll("all");
       successResponse(res, workers, 'List Of Workers', 200);
     } catch (err) {
       next(new ErrorHandler(500, 'Failed to get workers'));
@@ -26,6 +35,8 @@ export class WorkerController {
         .withMessage('price is required'),
     ];
   }
+
+  
 
   public create = async (
     req: Request,
